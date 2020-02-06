@@ -1,7 +1,7 @@
 <template>
   <div>
       <ul>
-        <li v-for=" (todoItem, index) in todoItems" class="shadow" v-bind:key="todoItem.item">
+        <li v-for=" (todoItem, index) in propsdata" class="shadow" v-bind:key="todoItem.item">
             <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
             <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
             <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
@@ -16,36 +16,19 @@
 /* eslint-disable no-console */
 
 export default {
+    props: ['propsdata'],
     data : function() {
         return {
-            message : '',
-            todoItems : []
-        }
-    },
-    created: function() { //vue instance life cycle
-        if (localStorage.length > 0) {
-            for (let index = 0; index < localStorage.length; index++) {
-                if (localStorage.key(index) !== 'loglevel:webpack-dev-server') {
-                    //this.todoItems.push(localStorage.key(index));
-
-                    this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(index))));
-                }
-            }
+            message : ''
         }
     },
     methods : {
         removeTodo: function(todoItem, index) {
-            console.log(todoItem, index);
-            this.todoItems.splice(index, 1); //배열을 삭제후 새로운 배열을 반환
-            localStorage.removeItem(todoItem);
+            this.$emit('removeItem', todoItem, index);
         },
         toggleComplete : function (todoItem, index) {
             console.log(todoItem, index);
-            todoItem.completed = !todoItem.completed ;
-
-            //localStorage remove, new add -> removeItem, setItem
-            localStorage.removeItem(todoItem.item);
-            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+            this.$emit('toggleItem', todoItem, index);
         }
     }
 }
