@@ -8,13 +8,13 @@
 
 <script>
 export default {
-    data : function() {
+    data() {
         return {
             message : ''
         }
     },
     methods : {
-        clearTodo : function () {
+        clearTodo () {
             this.$emit('clearItems');
         }
     }
