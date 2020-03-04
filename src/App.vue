@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addItem="addOneItem"></TodoInput>
+    <TodoInput></TodoInput>
     <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></TodoList>
     <TodoFooter v-on:clearItems="clearAllItems"></TodoFooter>
   </div>
@@ -31,18 +31,6 @@ export default {
     }
   },
   methods : {
-    addOneItem (todoItem) {
-      if (todoItem !== '') {
-          const obj = {
-              completed: false,
-              item: todoItem
-          };
-
-          localStorage.setItem(todoItem, JSON.stringify(obj));
-          this.todoItems.push(obj);
-          //this.clearInput();
-      }
-    },
     removeOneItem (todoItem, index) {
       this.todoItems.splice(index, 1); //배열을 삭제후 새로운 배열을 반환
       localStorage.removeItem(todoItem.item);

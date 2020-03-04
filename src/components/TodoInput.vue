@@ -38,7 +38,8 @@ export default {
     methods : {
         addTodo () {
             if (this.newTodoItem !== '') {
-              this.$emit('addItem', this.newTodoItem);
+              // this.$emit('addItem', this.newTodoItem);
+              this.$store.commit('addOneItem', this.newTodoItem);
               this.clearInput();
             } else {
               this.header = '정보확인';
