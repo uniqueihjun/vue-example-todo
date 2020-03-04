@@ -23,6 +23,7 @@
 <script>
 /* eslint-disable no-console */
 import Modal from './common/Modal.vue';
+import { mapMutations } from 'vuex'
 
 export default {
     data () {
@@ -36,10 +37,11 @@ export default {
         }
     },
     methods : {
+        ...mapMutations(['addOneItem']),
         addTodo () {
             if (this.newTodoItem !== '') {
               // this.$emit('addItem', this.newTodoItem);
-              this.$store.commit('addOneItem', this.newTodoItem);
+              this.addOneItem(this.newTodoItem);
               this.clearInput();
             } else {
               this.header = '정보확인';
